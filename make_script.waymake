@@ -1,0 +1,43 @@
+## This is for testing!
+## It will be merged into Waypoint later as the build script.
+
+global variables:
+	CC = clang
+	VERSION = 0
+	VERSION_PATCH = 0
+	VERSION_SUB_PATCH = 1
+	TARGET_PROCESSOR = -arch=x86-64
+	CFLAGS = -O3 -std=c11 -Werror -nostdlib -nostdinc -nostdinc++ -fno-builtin -ffreestanding
+
+	ASM = nasm
+end
+
+
+define waybootmgr:
+do:
+	##TODO
+end
+endDefine
+
+define klibc:
+
+do:	[*, recursive]
+	$(CC) $(CFLAGS) $(TARGET_PROCESSOR) include/klibc/ 
+	
+end 
+endDefine
+
+define kernel:	[depends: klibc]
+	
+do:	[recursive]
+	waymake all
+	
+end
+endDefine
+
+define install: [depends: kernel]
+
+do:
+	##TODO: UTILIZE WRAPPING FOR DD AND FOR OTHER STUFF TO COPY TO FAT32 USB!!!
+end
+endDefine
