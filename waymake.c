@@ -39,6 +39,7 @@ struct definition
 }definition;
 
 struct variable* root;
+struct definition* definition_root;
 
 void error_msg()
 {
@@ -87,6 +88,9 @@ int main(int argc, char* argv[])
 	root->value_to_substitute = "LINUX";
 	root->next_variable = NULL;
 
+	definition_root = (struct definition*)malloc(sizeof(struct definition));
+	//Just to ensure initialization, for now.
+
 
 	//At least has to have 2 arguments.
 	if (argc < 2)
@@ -98,6 +102,7 @@ int main(int argc, char* argv[])
 	//TODO/FIXME: if no script detected, assume it's a file called "Waymake".
 	//Or just rewrite the rewrite in Waypoint. It's OK, that's for a program that doesn't exist :).
 	parse_file(argv[1]);
+	printf("%s\n", "Make complete!");
 	
 	//Core stuff is done, close the file now.
 	return 0;
